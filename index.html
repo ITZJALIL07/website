@@ -155,7 +155,7 @@ textarea{min-height:76px}
 // WhatsApp number shown on the Thank You page (international format, no +)
 var WA_NUMBER = "213559485511";
 // Email address that receives the briefs (sent through FormSubmit.co, no server needed)
-var EMAIL = "abdeljalilfellah30@gmail.com";
+var EMAIL = "abdeljalilflah00@gmail.com";
 
 var lang = "en", cur = 0, V = {}, sending = false;
 var YN = ["Yes|نعم", "No|لا"];
@@ -168,7 +168,8 @@ var UI = {
  ph:"Website Project Brief|ملف مشروع الموقع", pd:"Tell us about your project, and we’ll take care of the rest.|حدّثنا عن مشروعك وسنتولى الباقي.",
  prev:"Previous|السابق", nxt:"Next Step|الخطوة التالية", snd:"Submit|إرسال", sending:"Sending…|جارٍ الإرسال…",
  err:"Full name and a valid phone number are required to continue.|الاسم الكامل ورقم هاتف صحيح مطلوبان للمتابعة.",
- fail:"We couldn’t send your answers. Please check your connection and try again.|تعذّر إرسال إجاباتك. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
+ failNetwork:"Couldn’t connect to the form service. Check your internet connection and try again.|تعذّر الاتصال بخدمة إرسال النموذج. تحقّق من اتصال الإنترنت وحاول مجددًا.",
+ failService:"The form service didn’t accept the request. Please try again later. If this is your first submission, check your inbox and spam folder for FormSubmit’s activation email.|لم تقبل خدمة النموذج الطلب. حاول لاحقًا. إذا كانت هذه أول محاولة، فتحقّق من الوارد والرسائل غير المرغوب فيها بحثًا عن رسالة تفعيل من FormSubmit.",
  ty:"Thank <span class=gr>You!</span>|شكرًا <span class=gr>لك!</span>",
  t1:"Your answers have been successfully submitted.|تم إرسال إجاباتك بنجاح.",
  t2:"We’ve received your project details and will contact you on WhatsApp shortly to discuss the next steps.|استلمنا تفاصيل مشروعك وسنتواصل معك عبر واتساب قريبًا لمناقشة الخطوات التالية.",
@@ -328,9 +329,16 @@ function sendEmail() {
     name: name, phone: (V[key(0, 2)] || "").trim(), message: message()};
   if (em) body.email = em;
   return fetch("https://formsubmit.co/ajax/" + EMAIL, {
-    method: "POST", headers: {"Content-Type": "application/json", "Accept": "application/json"}, body: JSON.stringify(body)
-  }).then(function (r) { if (!r.ok) throw new Error("http"); return r.json(); })
-    .then(function (d) { if (String(d.success) !== "true") throw new Error("rejected"); });
+    method: "POST", headers: {"Accept": "application/json"}, body: new URLSearchParams(body)
+  }).then(function (r) {
+    if (!r.ok) throw new Error("service");
+    return r.json().catch(function () { throw new Error("service"); });
+  }).then(function (d) {
+    if (String(d.success) !== "true") throw new Error("service");
+  }).catch(function (e) {
+    if (e.message === "service") throw e;
+    throw new Error("network");
+  });
 }
 
 $("prev").onclick = function () { if (cur > 0) { cur--; render(); } };
@@ -340,8 +348,8 @@ $("next").onclick = function () {
   sending = true; $("next").disabled = true; $("next").textContent = L(UI.sending); $("err").textContent = "";
   sendEmail().then(function () {
     $("main").hidden = true; $("thanks").hidden = false; window.scrollTo(0, 0);
-  }).catch(function () {
-    $("err").textContent = L(UI.fail);
+  }).catch(function (e) {
+    $("err").textContent = L(e.message === "service" ? UI.failService : UI.failNetwork);
   }).then(function () {
     sending = false; $("next").disabled = false; $("next").textContent = nextLabel();
   });
