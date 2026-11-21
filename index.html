@@ -151,11 +151,15 @@ textarea{min-height:76px}
 </section>
 </div>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js"></script>
 <script>
 // WhatsApp number shown on the Thank You page (international format, no +)
 var WA_NUMBER = "213559485511";
-// Email address that receives the briefs (sent through FormSubmit.co, no server needed)
+// Email address that receives the briefs
 var EMAIL = "abdeljalilflah00@gmail.com";
+var EMAILJS_SERVICE_ID = "service_rfuza46";
+var EMAILJS_TEMPLATE_ID = "template_8dqjhtg";
+var EMAILJS_PUBLIC_KEY = "xHh5TuOCfNnHK3H9C";
 
 var lang = "en", cur = 0, V = {}, sending = false;
 var YN = ["Yes|نعم", "No|لا"];
@@ -169,7 +173,7 @@ var UI = {
  prev:"Previous|السابق", nxt:"Next Step|الخطوة التالية", snd:"Submit|إرسال", sending:"Sending…|جارٍ الإرسال…",
  err:"Full name and a valid phone number are required to continue.|الاسم الكامل ورقم هاتف صحيح مطلوبان للمتابعة.",
  failNetwork:"Couldn’t connect to the form service. Check your internet connection and try again.|تعذّر الاتصال بخدمة إرسال النموذج. تحقّق من اتصال الإنترنت وحاول مجددًا.",
- failService:"The form service didn’t accept the request. Please try again later. If this is your first submission, check your inbox and spam folder for FormSubmit’s activation email.|لم تقبل خدمة النموذج الطلب. حاول لاحقًا. إذا كانت هذه أول محاولة، فتحقّق من الوارد والرسائل غير المرغوب فيها بحثًا عن رسالة تفعيل من FormSubmit.",
+ failService:"The email service couldn’t accept your request. Please try again later.|تعذّر على خدمة البريد قبول طلبك. حاول مرة أخرى لاحقًا.",
  ty:"Thank <span class=gr>You!</span>|شكرًا <span class=gr>لك!</span>",
  t1:"Your answers have been successfully submitted.|تم إرسال إجاباتك بنجاح.",
  t2:"We’ve received your project details and will contact you on WhatsApp shortly to discuss the next steps.|استلمنا تفاصيل مشروعك وسنتواصل معك عبر واتساب قريبًا لمناقشة الخطوات التالية.",
@@ -323,20 +327,28 @@ function message() {
 }
 
 function sendEmail() {
-  if (!EMAIL) return Promise.reject(new Error("no email"));
+  if (!window.emailjs || typeof window.emailjs.send !== "function") {
+    return Promise.reject(new Error("network"));
+  }
   var name = (V[key(0, 0)] || "").trim(), em = (V[key(0, 3)] || "").trim();
-  var body = {_subject: "New website project brief – " + name, _template: "box", _captcha: "false", _honey: "",
-    name: name, phone: (V[key(0, 2)] || "").trim(), message: message()};
-  if (em) body.email = em;
-  return fetch("https://formsubmit.co/ajax/" + EMAIL, {
-    method: "POST", headers: {"Accept": "application/json"}, body: new URLSearchParams(body)
-  }).then(function (r) {
-    if (!r.ok) throw new Error("service");
-    return r.json().catch(function () { throw new Error("service"); });
+  var templateParams = {
+    name: name,
+    phone: (V[key(0, 2)] || "").trim(),
+    message: message(),
+    to_email: EMAIL
+  };
+  if (em) {
+    templateParams.email = em;
+    templateParams.reply_to = em;
+  }
+  return window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
+    publicKey: EMAILJS_PUBLIC_KEY
   }).then(function (d) {
-    if (String(d.success) !== "true") throw new Error("service");
+    if (!d || d.status !== 200) throw new Error("service");
   }).catch(function (e) {
-    if (e.message === "service") throw e;
+    if (e && (e.message === "service" || typeof e.status === "number")) {
+      throw new Error("service");
+    }
     throw new Error("network");
   });
 }
