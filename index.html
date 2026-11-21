@@ -168,10 +168,14 @@ var UI = {
  ph:"Website Project Brief|ملف مشروع الموقع", pd:"Tell us about your project, and we’ll take care of the rest.|حدّثنا عن مشروعك وسنتولى الباقي.",
  prev:"Previous|السابق", nxt:"Next Step|الخطوة التالية", snd:"Submit|إرسال", sending:"Sending…|جارٍ الإرسال…",
  err:"Full name and a valid phone number are required to continue.|الاسم الكامل ورقم هاتف صحيح مطلوبان للمتابعة.",
- fail:"We couldn’t send your answers. Please check your connection and try again.|تعذّر إرسال إجاباتك. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
+ fail:"FormSubmit rejected the request. Check that the recipient email is correct and activated (including any FormSubmit confirmation email), then try again.|رفض FormSubmit الطلب. تحقق من صحة بريد الاستقبال وتفعيله (بما في ذلك رسالة تأكيد FormSubmit)، ثم أعد المحاولة.",
+ network:"Could not reach FormSubmit. Check your internet connection or browser/network restrictions, then try again.|تعذر الوصول إلى FormSubmit. تحقق من اتصال الإنترنت أو قيود المتصفح/الشبكة، ثم أعد المحاولة.",
+ notConfigured:"The form recipient email is not configured. Please contact us on WhatsApp.|لم يتم إعداد بريد استقبال النموذج. يرجى التواصل معنا عبر واتساب.",
+ badResponse:"FormSubmit returned an unexpected response. Please try again later or contact us on WhatsApp.|أعادت FormSubmit استجابة غير متوقعة. أعد المحاولة لاحقًا أو تواصل معنا عبر واتساب.",
+ otherError:"Something went wrong while submitting your answers. Please try again.|حدث خطأ أثناء إرسال إجاباتك. يرجى المحاولة مرة أخرى.",
  ty:"Thank <span class=gr>You!</span>|شكرًا <span class=gr>لك!</span>",
- t1:"Your answers have been successfully submitted.|تم إرسال إجاباتك بنجاح.",
- t2:"We’ve received your project details and will contact you on WhatsApp shortly to discuss the next steps.|استلمنا تفاصيل مشروعك وسنتواصل معك عبر واتساب قريبًا لمناقشة الخطوات التالية.",
+ t1:"Your project details have been received by our form service.|استلمت خدمة استقبال النماذج تفاصيل مشروعك.",
+ t2:"We’ll review them and contact you on WhatsApp shortly to discuss the next steps.|سنراجعها ونتواصل معك عبر واتساب قريبًا لمناقشة الخطوات التالية.",
  wa:"Chat on WhatsApp|تواصل عبر واتساب", home:"Back to Home|العودة إلى الرئيسية",
  hello:"Hello, I just submitted my project brief.|مرحبًا، أرسلتُ للتو ملف مشروعي."
 };
@@ -322,15 +326,48 @@ function message() {
 }
 
 function sendEmail() {
-  if (!EMAIL) return Promise.reject(new Error("no email"));
+  if (!EMAIL) {
+    var configError = new Error("The recipient email is not configured");
+    configError.code = "not-configured";
+    return Promise.reject(configError);
+  }
   var name = (V[key(0, 0)] || "").trim(), em = (V[key(0, 3)] || "").trim();
   var body = {_subject: "New website project brief – " + name, _template: "box", _captcha: "false", _honey: "",
     name: name, phone: (V[key(0, 2)] || "").trim(), message: message()};
   if (em) body.email = em;
   return fetch("https://formsubmit.co/ajax/" + EMAIL, {
     method: "POST", headers: {"Content-Type": "application/json", "Accept": "application/json"}, body: JSON.stringify(body)
-  }).then(function (r) { if (!r.ok) throw new Error("http"); return r.json(); })
-    .then(function (d) { if (String(d.success) !== "true") throw new Error("rejected"); });
+  }).then(function (r) {
+    return r.text().then(function (text) {
+      var d = null;
+      try { d = text ? JSON.parse(text) : null; } catch (parseError) { d = null; }
+      if (!r.ok) {
+        var httpError = new Error("FormSubmit returned HTTP " + r.status);
+        httpError.code = "rejected";
+        httpError.status = r.status;
+        throw httpError;
+      }
+      if (!d || String(d.success).toLowerCase() !== "true") {
+        var responseError = new Error("FormSubmit rejected the request");
+        responseError.code = d ? "rejected" : "bad-response";
+        throw responseError;
+      }
+    });
+  }, function (error) {
+    var networkError = new Error("Could not reach FormSubmit");
+    networkError.code = "network";
+    throw networkError;
+  });
+}
+
+function submissionError(error) {
+  if (error && error.code === "not-configured") return L(UI.notConfigured);
+  if (error && error.code === "rejected") {
+    return L(UI.fail) + (error.status ? " (HTTP " + error.status + ")" : "");
+  }
+  if (error && error.code === "bad-response") return L(UI.badResponse);
+  if (error && error.code === "network") return L(UI.network);
+  return L(UI.otherError);
 }
 
 $("prev").onclick = function () { if (cur > 0) { cur--; render(); } };
@@ -340,8 +377,8 @@ $("next").onclick = function () {
   sending = true; $("next").disabled = true; $("next").textContent = L(UI.sending); $("err").textContent = "";
   sendEmail().then(function () {
     $("main").hidden = true; $("thanks").hidden = false; window.scrollTo(0, 0);
-  }).catch(function () {
-    $("err").textContent = L(UI.fail);
+  }).catch(function (error) {
+    $("err").textContent = submissionError(error);
   }).then(function () {
     sending = false; $("next").disabled = false; $("next").textContent = nextLabel();
   });
