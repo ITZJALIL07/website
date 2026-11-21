@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Let’s Build Your Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#040a1f;--tx:#e8f0ff;--mu:#9db2d9;--cy:#22d3ee;--bl:#3b82f6;--pu:#a855f7;--g:linear-gradient(90deg,#22d3ee,#3b82f6 55%,#a855f7);--ln:rgba(96,165,250,.45);--gl:rgba(10,22,64,.6);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;color:var(--tx);font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;font-size:17px;line-height:1.7;background:radial-gradient(900px 500px at 15% -5%,rgba(37,99,235,.35),transparent 60%),radial-gradient(800px 500px at 100% 100%,rgba(124,58,237,.35),transparent 60%),var(--bg);min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.brand{font-weight:800;font-size:20px}
+.btn{font:inherit;font-weight:800;font-size:16px;border:0;border-radius:14px;padding:11px 26px;cursor:pointer;color:#04112b;background:var(--g);box-shadow:0 0 24px rgba(59,130,246,.5)}
+.btn.o{background:transparent;color:var(--tx);border:1.5px solid var(--cy);box-shadow:none;padding:8px 20px}
+.btn.gh{background:transparent;color:var(--mu);border:1px solid var(--ln);box-shadow:none}
+.btn[hidden]{display:none}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;padding:20px 0 30px}
+h1{font-size:clamp(38px,7vw,64px);line-height:1.2;font-weight:800;margin:0 0 14px}
+.gr{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0 0 20px;font-size:19px;max-width:28em}
+.feats{display:flex;flex-wrap:wrap;gap:22px;margin-top:22px;font-size:15px;color:var(--mu)}
+.feats span{display:flex;align-items:center;gap:10px}
+.feats svg{width:34px;height:34px}
+.art{width:100%;height:auto;filter:drop-shadow(0 0 30px rgba(59,130,246,.55))}
+.panel{border:1.5px solid var(--ln);border-radius:24px;background:var(--gl);box-shadow:0 0 40px rgba(59,130,246,.25),inset 0 0 40px rgba(59,130,246,.08);padding:26px}
+.ph{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:22px;text-align:start}
+.ph .ic{width:56px;height:56px;border:1.5px solid var(--cy);border-radius:14px;display:grid;place-items:center;font-size:26px}
+.ph h2{margin:0;font-size:30px;font-weight:800;line-height:1.2}
+.ph small{color:var(--mu);font-size:15px}
+.steps{display:flex;margin-bottom:22px}
+.st{flex:1;text-align:center;position:relative;font-size:14px;color:var(--mu);background:none;border:0;font-family:inherit;padding:0}
+.st i{display:grid;place-items:center;width:38px;height:38px;margin:0 auto 6px;border-radius:50%;border:1.5px solid var(--ln);background:#0a1640;font-style:normal;font-weight:700;color:var(--tx);position:relative;z-index:1}
+.st:not(:last-child)::before{content:"";position:absolute;top:18px;right:50%;left:-50%;height:2px;background:var(--ln)}
+.st.d::before,.st.a::before{background:var(--cy)}
+.st.d i{border-color:var(--cy);color:var(--cy)}
+.st.a i{background:var(--g);color:#04112b;border-color:transparent;box-shadow:0 0 18px rgba(34,211,238,.7)}
+.st.a{color:var(--tx);font-weight:700}
+.body{display:grid;grid-template-columns:220px 1fr;gap:20px}
+.side{border:1px solid var(--ln);border-radius:18px;background:rgba(15,30,90,.35);padding:22px 16px;text-align:center;align-self:stretch;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.side .big{font-size:54px;line-height:1.1;margin-bottom:10px}
+.side b{font-size:20px}
+.side p{color:var(--mu);font-size:15px;margin:6px 0 0}
+.pane{border:1px solid var(--ln);border-radius:18px;padding:22px;min-width:0}
+.pane h3{margin:0 0 16px;font-size:22px;font-weight:800}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fld.w{grid-column:1/-1}
+.fld label{display:block;font-size:15px;font-weight:700;margin-bottom:6px}
+.fld em{color:#f472b6;font-style:normal}
+input,textarea{width:100%;font:inherit;font-size:16px;color:var(--tx);background:rgba(6,14,48,.8);border:1px solid var(--ln);border-radius:10px;padding:11px 14px}
+textarea{min-height:84px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#6f84b0}
+input:focus,textarea:focus{outline:none;border-color:var(--cy);box-shadow:0 0 0 3px rgba(34,211,238,.2)}
+.fld.bad input{border-color:#f472b6}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:15px;color:var(--tx);background:rgba(6,14,48,.8);border:1px solid var(--ln);border-radius:999px;padding:6px 16px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--g);color:#04112b;border-color:transparent;font-weight:700}
+button:focus-visible,.chip:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+.err{min-height:24px;margin-top:12px;color:#f9a8d4;font-size:15px}
+.nv{display:flex;justify-content:space-between;gap:10px;margin-top:6px}
+.thanks{text-align:center;padding:50px 0 60px}
+.thanks svg{width:130px;height:130px;filter:drop-shadow(0 0 22px rgba(34,211,238,.7))}
+.thanks h2{font-size:clamp(38px,8vw,60px);margin:10px 0;font-weight:800}
+.thanks p{margin:0 auto 8px;max-width:30em;font-size:19px}
+.wa{display:inline-flex;align-items:center;gap:10px;margin:22px 0 18px;background:linear-gradient(90deg,#22c55e,#16a34a 60%,#7c3aed);color:#fff;box-shadow:0 0 28px rgba(34,197,94,.45);padding:14px 34px;font-size:19px}
+.back{display:block;background:none;border:0;color:var(--cy);font:inherit;text-decoration:underline;cursor:pointer;margin:0 auto}
+[hidden]{display:none!important}
+html[lang=en] body{font-family:"Poppins","Tajawal","Segoe UI",Arial,sans-serif}
+html[dir=ltr] .st:not(:last-child)::before{right:-50%;left:50%}
+.tel{direction:ltr}
+html[dir=rtl] .tel{text-align:right}
+.feats b{font-weight:400}
+.nr{display:flex;gap:10px;align-items:center}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.art{max-width:360px;margin:0 auto}.body{grid-template-columns:1fr}.side{display:none}.g{grid-template-columns:1fr}.st span{display:none}.st.a span{display:block;position:absolute;top:44px;right:0;left:0}.steps{margin-bottom:46px}.panel{padding:18px 14px}.ph h2{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="main">
+  <div class="nav"><span class="brand" data-k="brand"></span><span class="nr"><button class="btn o" id="lang" type="button">العربية</button><button class="btn o" id="go" type="button" data-k="go"></button></span></div>
+  <section class="hero">
+    <div>
+      <h1 data-k="h1"></h1>
+      <p data-k="hp"></p>
+      <div class="feats">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.8" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><b data-k="f1"></b></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9 8 11 4.6-2 8-6 8-11V5z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><b data-k="f2"></b></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20V13M10 20V9M16 20v-5M22 20H2"/><path d="m4 8 6-4 4 3 6-5"/></svg><b data-k="f3"></b></span>
+      </div>
+    </div>
+    <svg class="art" viewBox="0 0 400 280" aria-hidden="true"><defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".6" stop-color="#3b82f6"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs><path d="M60 225h280l24 22H36z" fill="#0f1f5c" stroke="url(#lg)" stroke-width="2"/><rect x="82" y="40" width="236" height="176" rx="10" fill="#071236" stroke="url(#lg)" stroke-width="3"/><rect x="98" y="58" width="90" height="10" rx="5" fill="#22d3ee" opacity=".8"/><rect x="98" y="80" width="130" height="7" rx="3" fill="#3b82f6" opacity=".6"/><rect x="98" y="120" width="26" height="78" rx="4" fill="url(#lg)"/><rect x="134" y="102" width="26" height="96" rx="4" fill="url(#lg)"/><rect x="170" y="82" width="26" height="116" rx="4" fill="url(#lg)"/><circle cx="262" cy="130" r="30" fill="none" stroke="#a855f7" stroke-width="8" stroke-dasharray="120 70"/><text x="196" y="30" text-anchor="middle" font-size="26" fill="#22d3ee" font-family="monospace">&lt;/&gt;</text></svg>
+  </section>
+
+  <section class="panel" id="brief" aria-label="ملف مشروع الموقع">
+    <div class="ph"><div class="ic">📋</div><div><h2 data-k="ph"></h2><small data-k="pd"></small></div></div>
+    <div class="steps" id="steps"></div>
+    <div class="body">
+      <aside class="side"><div class="big" id="sicon"></div><b id="stitle"></b><p id="sdesc"></p></aside>
+      <div class="pane">
+        <div id="pane"></div>
+        <div class="err" id="err" role="alert"></div>
+        <div class="nv"><button class="btn gh" id="prev" type="button" data-k="prev"></button><button class="btn" id="next" type="button"></button></div>
+      </div>
+    </div>
+  </section>
+  <div style="height:60px"></div>
+</div>
+
+<section class="thanks" id="thanks" hidden>
+  <svg viewBox="0 0 120 120" fill="none"><defs><linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs><circle cx="60" cy="60" r="52" stroke="url(#tg)" stroke-width="6"/><path d="m36 62 17 17 32-36" stroke="#2ee6a6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <h2 data-k="ty"></h2>
+  <p data-k="t1"></p>
+  <p style="color:var(--mu)" data-k="t2"></p>
+  <button class="btn wa" id="wa" type="button" data-k="wa"></button>
+  <button class="back" id="home" type="button" data-k="home"></button>
+</section>
+</div>
+
+<script>
+// WhatsApp number that receives the answers (international format, no +)
+var WA_NUMBER = "213559485511";
+
+var lang = "en", cur = 0, V = {};
+var YN = ["Yes|نعم", "No|لا"];
+var UI = {
+ tt:"Let’s Build Your Website|لنبنِ موقعك",
+ brand:"Project Brief|ملف المشروع", go:"Start a Project|ابدأ مشروعا",
+ h1:"Let’s Build<br>Your <span class=gr>Website.</span>|لنبنِ <span class=gr>موقعك.</span>",
+ hp:"Answer a few questions to help us understand your needs and create the perfect website for your business.|جاوب على بعض الأسئلة باش نفهمو حاجتك ونصنعو الموقع المناسب لنشاطك.",
+ f1:"Fast & Modern Design|تصميم سريع وعصري", f2:"Secure & Reliable|آمن وموثوق", f3:"Grow Your Business|ينمّي نشاطك",
+ ph:"Website Project Brief|ملف مشروع الموقع", pd:"Tell us about your project, and we’ll take care of the rest.|احكيلنا على مشروعك ونتكفلو بالباقي",
+ prev:"Previous|السابق", nxt:"Next Step|الخطوة التالية", snd:"Submit|إرسال",
+ err:"Full name and a valid phone number are required to continue.|الاسم الكامل ورقم الهاتف الصحيح مطلوبان للمتابعة.",
+ ty:"Thank <span class=gr>You!</span>|شكرا <span class=gr>لك!</span>",
+ t1:"Your answers have been successfully submitted.|تم إرسال إجاباتك بنجاح.",
+ t2:"We’ve received your project details and will contact you on WhatsApp shortly to discuss the next steps.|وصلتنا تفاصيل مشروعك وسنتواصل معك على واتساب في أقرب وقت لمناقشة الخطوات القادمة.",
+ wa:"Chat on WhatsApp|تواصل عبر واتساب", home:"Back to Home|العودة للرئيسية"
+};
+// field: [label, type, placeholder | options, required]; types: t text, p phone, e email, a textarea, c single choice, m multi choice
+var ST = [
+ {t:"Client Info|معلومات الزبون", i:"👤", h:"A little about you|عنك شوية", d:"Let’s start with some basic information.|لنبدأ ببعض المعلومات الأساسية.", f:[
+  ["Full Name|الاسم الكامل","t","Enter your name|أدخل اسمك",1],
+  ["Company / Brand (Optional)|اسم النشاط (اختياري)","t","Your company name|اسم شركتك أو علامتك"],
+  ["Phone Number|رقم الهاتف","p","+213 6X XX XX XX",1],
+  ["Email Address (Optional)|البريد الإلكتروني (اختياري)","e","you@example.com"]]},
+ {t:"Project Idea|فكرة المشروع", i:"💡", h:"Your project|مشروعك", d:"What do you offer, and to whom?|شنو تقدم ولمن تقدمه؟", f:[
+  ["What does your business do, and what exactly do you sell or offer?|شنو نشاطك وشنو تبيع أو تقدم بالضبط؟","a","Describe it in your own words|اشرح بكلامك"],
+  ["Since when, and where are you based?|من أي سنة تخدم وفي أي ولاية؟","t","e.g. since 2020, in Oran|مثال: منذ 2020 في وهران"],
+  ["What makes you different from competitors?|شنو الشيء اللي يميزك على المنافسين؟","a",""],
+  ["Why do you want a website?|علاش حابب تدير موقع؟","m",["Introduce my business|تعريف بالنشاط","Sell online|بيع أونلاين","Receive orders|استقبال طلبات","Book appointments|حجز مواعيد","Find new customers|زبائن جدد","Build credibility|مصداقية أكثر"]],
+  ["Who are your customers? (age, area, type)|شكون هما زبائنك؟ (العمر، المنطقة، النوع)","a",""],
+  ["Which languages should the site have?|بأي لغة تحب الموقع؟","m",["Arabic|عربي","French|فرنسي","English|إنجليزي"]]]},
+ {t:"Website Type|نوع الموقع", i:"🖥️", h:"Site format|شكل الموقع", d:"Which type of website fits you?|شنو نوع الموقع اللي يناسبك؟", f:[
+  ["Type of website|نوع الموقع","c",["Business website|موقع تعريفي","Product catalog|كتالوج منتجات","Online store|متجر إلكتروني","Appointment booking|حجز مواعيد","Portfolio|معرض أعمال"]],
+  ["Pages you need|الصفحات المطلوبة","m",["Home|الرئيسية","About|من نحن","Services/Products|الخدمات/المنتجات","Gallery|معرض الصور","Contact|اتصل بنا"]],
+  ["Roughly how many products or services?|قداش عندك من منتج/خدمة تقريبا؟","t","e.g. 40 products|مثال: 40 منتج"],
+  ["Show prices on the site?|تعرض الأسعار في الموقع؟","c",YN],
+  ["How should orders be placed?|كيفاش تتم الطلبية؟","m",["WhatsApp|واتساب","Form on the site|فورم داخل الموقع","Cash on delivery|دفع عند الاستلام"]],
+  ["How should customers contact you?|كيفاش تحب الزبون يتواصل معاك؟","m",["WhatsApp|واتساب","Phone call|اتصال","Form|فورم","Email|إيميل"]]]},
+ {t:"Design Style|ستايل التصميم", i:"🎨", h:"Your look|هويتك البصرية", d:"How do you picture your site?|كيفاش تتخيل شكل موقعك؟", f:[
+  ["Styles you like|الستايل اللي تحبه","m",["Simple & elegant|بسيط وأنيق","Luxurious|فخم","Modern|عصري","Colorful|ملون"]],
+  ["Do you have a logo and brand colors?|عندك لوغو وألوان خاصة؟","c",["Logo and colors|لوغو وألوان","Logo only|لوغو فقط","None|ما عنديش"]],
+  ["Websites you like (send links)|مواقع تعجبك؟ ابعث روابطها","a","Links here|الروابط هنا"],
+  ["What do you dislike in websites?|شنو الأشياء اللي ما تحبهاش في المواقع؟","a",""],
+  ["Photos and videos|الصور والفيديوهات","c",["I have them|عندي","Please create them|لازم تخدمها"]],
+  ["Texts (description, prices, terms)|النصوص (وصف، أسعار، شروط)","c",["I have them|عندي","Please write them|اكتبها أنت"]]]},
+ {t:"Features|المميزات", i:"⚙️", h:"Features|المميزات", d:"What should your site be able to do?|شنو يحتاج موقعك من إمكانيات؟", f:[
+  ["Admin panel to edit products and content?|تحب لوحة تحكم (admin) تعدل منها المنتجات والمحتوى؟","c",YN],
+  ["Do you want to appear on Google (SEO)?|تحب تظهر على قوقل (SEO)؟","c",YN],
+  ["Social accounts to link|حساباتك اللي نربطوها بالموقع","t","Facebook, Instagram, TikTok|فيسبوك، إنستغرام، تيك توك"],
+  ["Domain and hosting|الدومين والاستضافة","c",["I have them|عندي","Please provide them|لازم توفرهم"]],
+  ["Maintenance and edits after delivery|الصيانة والتعديلات بعد التسليم","c",YN],
+  ["Other features|مميزات أخرى","m",["Map|خريطة","Blog|مدونة","Customer reviews|آراء الزبائن","Multiple languages|لغات متعددة","Floating WhatsApp button|زر واتساب عائم"]]]},
+ {t:"Budget & Time|الميزانية والوقت", i:"⏱️", h:"Budget & Time|الميزانية والوقت", d:"Last step before sending.|آخر خطوة قبل الإرسال.", f:[
+  ["Budget for the website|الميزانية المخصصة للموقع","t","e.g. 60,000 DZD|مثال: 60,000 دج"],
+  ["When do you need it ready?|في أي تاريخ تحب يكون الموقع جاهز؟","t",""],
+  ["Payment method|طريقة الدفع","c",["One payment|دفعة واحدة","Installments|بالأقساط"]],
+  ["Who approves the design and content?|شكون يوافق على التصميم والمحتوى من جهتك؟","t",""],
+  ["How do you want to follow progress?|متابعة التقدم","c",["Messages|رسائل","Weekly calls|مكالمات أسبوعية"]],
+  ["Other notes|ملاحظات أخرى","a",""]]}
+];
+
+var $ = function (id) { return document.getElementById(id); };
+var key = function (s, f) { return "s" + s + "f" + f; };
+var L = function (s) { return s.split("|")[lang === "ar" ? 1 : 0] || ""; };
+var A = function (s) { return s.split("|")[1] || s; };
+var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
+
+function buildSteps() {
+  $("steps").innerHTML = ST.map(function (s, i) {
+    return '<button class="st" type="button" data-i="' + i + '"><i>' + (i + 1) + '</i><span>' + L(s.t) + '</span></button>';
+  }).join("");
+}
+
+function render() {
+  var s = ST[cur], h = '<h3>' + (cur + 1) + '. ' + L(s.t) + '</h3><div class="g">';
+  s.f.forEach(function (f, fi) {
+    var id = key(cur, fi), ty = f[1], v = V[id];
+    var wide = (ty === "a" || ty === "c" || ty === "m") ? " w" : "";
+    var ph = Array.isArray(f[2]) ? "" : esc(L(f[2] || ""));
+    h += '<div class="fld' + wide + '" id="w' + id + '"><label for="' + id + '">' + L(f[0]) + (f[3] ? ' <em>*</em>' : '') + '</label>';
+    if (ty === "a") h += '<textarea id="' + id + '" placeholder="' + ph + '">' + esc(v || "") + '</textarea>';
+    else if (ty === "c" || ty === "m") {
+      h += '<div class="chips" id="' + id + '">';
+      f[2].forEach(function (o) {
+        var on = ty === "m" ? (v || []).indexOf(o) > -1 : v === o;
+        h += '<button type="button" class="chip" aria-pressed="' + on + '" data-id="' + id + '" data-ty="' + ty + '" data-v="' + esc(o) + '">' + L(o) + '</button>';
+      });
+      h += '</div>';
+    } else {
+      h += '<input id="' + id + '" type="' + (ty === "p" ? "tel" : ty === "e" ? "email" : "text") + '" placeholder="' + ph + '" value="' + esc(v || "") + '"' + (ty === "p" ? ' class="tel" inputmode="tel"' : '') + '>';
+    }
+    h += '</div>';
+  });
+  $("pane").innerHTML = h + '</div>';
+  $("err").textContent = "";
+  $("sicon").textContent = s.i; $("stitle").textContent = L(s.h); $("sdesc").textContent = L(s.d);
+  document.querySelectorAll(".st").forEach(function (b, i) {
+    b.className = "st" + (i < cur ? " d" : i === cur ? " a" : "");
+  });
+  $("prev").hidden = cur === 0;
+  $("next").textContent = L(cur === ST.length - 1 ? UI.snd : UI.nxt);
+}
+
+function setLang(l) {
+  lang = l;
+  var d = document.documentElement;
+  d.lang = l; d.dir = l === "ar" ? "rtl" : "ltr";
+  document.title = L(UI.tt);
+  document.querySelectorAll("[data-k]").forEach(function (e) { e.innerHTML = L(UI[e.dataset.k]); });
+  $("lang").textContent = l === "en" ? "العربية" : "English";
+  buildSteps(); render();
+}
+
+$("pane").addEventListener("input", function (e) { V[e.target.id] = e.target.value; });
+$("pane").addEventListener("click", function (e) {
+  var b = e.target.closest(".chip");
+  if (!b) return;
+  var id = b.dataset.id, v = b.dataset.v, m = b.dataset.ty === "m";
+  if (m) {
+    var a = V[id] || [], at = a.indexOf(v);
+    if (at > -1) a.splice(at, 1); else a.push(v);
+    V[id] = a;
+  } else V[id] = V[id] === v ? "" : v;
+  $(id).querySelectorAll(".chip").forEach(function (c) {
+    c.setAttribute("aria-pressed", m ? V[id].indexOf(c.dataset.v) > -1 : V[id] === c.dataset.v);
+  });
+});
+$("steps").addEventListener("click", function (e) {
+  var b = e.target.closest(".st");
+  if (b && +b.dataset.i < cur) { cur = +b.dataset.i; render(); }
+});
+
+function valid() {
+  if (cur !== 0) return true;
+  var name = (V[key(0, 0)] || "").trim(), ph = (V[key(0, 2)] || "").replace(/\D/g, "");
+  var bad = null;
+  if (ph.length < 8) bad = key(0, 2);
+  if (!name) bad = key(0, 0);
+  if (bad) {
+    $("w" + bad).classList.add("bad"); $(bad).focus();
+    $("err").textContent = L(UI.err);
+    return false;
+  }
+  return true;
+}
+
+// The message sent to WhatsApp is always in Arabic so it reads the same whichever language the client used.
+function message() {
+  var o = "*طلب موقع جديد* 🌐\n";
+  ST.forEach(function (s, si) {
+    var l = "";
+    s.f.forEach(function (f, fi) {
+      var v = V[key(si, fi)];
+      v = Array.isArray(v) ? v.map(A).join("، ") : (f[1] === "c" ? A(v || "") : (v || "").trim());
+      if (v) l += "• " + A(f[0]).replace(" (اختياري)", "") + ": " + v + "\n";
+    });
+    if (l) o += "\n*" + (si + 1) + ". " + A(s.t) + "*\n" + l;
+  });
+  return o;
+}
+function openWA() {
+  window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(message()), "_blank", "noopener");
+}
+
+$("prev").onclick = function () { if (cur > 0) { cur--; render(); } };
+$("next").onclick = function () {
+  if (!valid()) return;
+  if (cur < ST.length - 1) { cur++; render(); $("brief").scrollIntoView(); return; }
+  $("main").hidden = true; $("thanks").hidden = false; window.scrollTo(0, 0);
+  openWA();
+};
+$("wa").onclick = openWA;
+$("go").onclick = function () { $("brief").scrollIntoView({behavior: "smooth"}); };
+$("lang").onclick = function () { setLang(lang === "en" ? "ar" : "en"); };
+$("home").onclick = function () {
+  V = {}; cur = 0; render();
+  $("thanks").hidden = true; $("main").hidden = false; window.scrollTo(0, 0);
+};
+setLang("en");
+</script>
+</body>
+</html>
