@@ -12,23 +12,21 @@
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;color:var(--tx);font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;font-size:17px;line-height:1.7;background:radial-gradient(900px 500px at 15% -5%,rgba(37,99,235,.35),transparent 60%),radial-gradient(800px 500px at 100% 100%,rgba(124,58,237,.35),transparent 60%),var(--bg);min-height:100vh}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
-.wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
 .brand{font-weight:800;font-size:20px}
 .btn{font:inherit;font-weight:800;font-size:16px;border:0;border-radius:14px;padding:11px 26px;cursor:pointer;color:#04112b;background:var(--g);box-shadow:0 0 24px rgba(59,130,246,.5)}
 .btn.o{background:transparent;color:var(--tx);border:1.5px solid var(--cy);box-shadow:none;padding:8px 20px}
 .btn.gh{background:transparent;color:var(--mu);border:1px solid var(--ln);box-shadow:none}
 .btn[hidden]{display:none}
-.hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(280px,.88fr);grid-template-areas:"copy art";gap:32px;align-items:center;padding:36px 0 40px}
-.hero>div{grid-area:copy}
-.hero>.art{grid-area:art}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;padding:20px 0 34px}
 h1{font-size:clamp(38px,7vw,64px);line-height:1.2;font-weight:800;margin:0 0 14px}
 .gr{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{margin:0 0 20px;font-size:19px;max-width:28em}
 .feats{display:flex;flex-wrap:wrap;gap:22px;margin-top:22px;font-size:15px;color:var(--mu)}
 .feats span{display:flex;align-items:center;gap:10px}
 .feats svg{width:34px;height:34px}
-.art{width:100%;max-width:430px;height:auto;margin-inline:auto;direction:ltr;filter:drop-shadow(0 0 30px rgba(59,130,246,.55))}
+.art{width:100%;height:auto;filter:drop-shadow(0 0 30px rgba(59,130,246,.55))}
 .panel{border:1.5px solid var(--ln);border-radius:24px;background:var(--gl);box-shadow:0 0 40px rgba(59,130,246,.25),inset 0 0 40px rgba(59,130,246,.08);padding:26px}
 .ph{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:22px;text-align:start}
 .ph .ic{width:56px;height:56px;border:1.5px solid var(--cy);border-radius:14px;display:grid;place-items:center;font-size:26px}
@@ -37,7 +35,7 @@ h1{font-size:clamp(38px,7vw,64px);line-height:1.2;font-weight:800;margin:0 0 14p
 .steps{display:flex;margin-bottom:22px}
 .st{flex:1;text-align:center;position:relative;font-size:14px;color:var(--mu);background:none;border:0;font-family:inherit;padding:0}
 .st i{display:grid;place-items:center;width:38px;height:38px;margin:0 auto 6px;border-radius:50%;border:1.5px solid var(--ln);background:#0a1640;font-style:normal;font-weight:700;color:var(--tx);position:relative;z-index:1}
-.st:not(:last-child)::before{content:"";position:absolute;top:18px;right:50%;left:-50%;height:2px;background:var(--ln)}
+.st:not(:last-child)::before{content:"";position:absolute;top:18px;left:50%;right:-50%;height:2px;background:var(--ln)}
 .st.d::before,.st.a::before{background:var(--cy)}
 .st.d i{border-color:var(--cy);color:var(--cy)}
 .st.a i{background:var(--g);color:#04112b;border-color:transparent;box-shadow:0 0 18px rgba(34,211,238,.7)}
@@ -72,40 +70,42 @@ button:focus-visible,.chip:focus-visible{outline:2px solid var(--cy);outline-off
 .back{display:block;background:none;border:0;color:var(--cy);font:inherit;text-decoration:underline;cursor:pointer;margin:0 auto}
 [hidden]{display:none!important}
 html[lang=en] body{font-family:"Poppins","Tajawal","Segoe UI",Arial,sans-serif}
-html[dir=ltr] .st:not(:last-child)::before{right:-50%;left:50%}
 .tel{direction:ltr}
-html[dir=rtl] .tel{text-align:right}
-html[dir=rtl] .hero{direction:rtl}
-html[dir=rtl] .hero>div{text-align:right}
-html[dir=rtl] .hero>.art{direction:ltr}
+html[lang=ar] :is(h1,.hero p,.feats b,.ph h2,.ph small,.fld,.pane h3,.side b,.side p,.err,.st span,.chip,.btn,.brand,.thanks h2,.thanks p,.back){direction:rtl}
+html[lang=ar] .fld input,html[lang=ar] .fld textarea{direction:rtl;text-align:right}
+html[lang=ar] .tel{direction:ltr;text-align:right}
+body{overflow-x:hidden}
 .feats b{font-weight:400}
 .nr{display:flex;gap:10px;align-items:center}
-@media (max-width:860px){
-  .wrap{width:min(100% - 28px,1120px)}
-  .nav{padding:14px 0}
-  .brand{font-size:17px}
-  .nr{gap:6px}
-  .btn{min-height:44px;padding:10px 16px}
-  .hero{grid-template-columns:1fr;grid-template-areas:"copy" "art";gap:12px;padding:20px 0 28px;text-align:inherit}
-  .hero h1{font-size:clamp(36px,11vw,54px)}
-  .hero p{font-size:17px}
-  .art{max-width:min(360px,88vw)}
-  .feats{gap:12px 18px}
-  .body{grid-template-columns:minmax(0,1fr)}
-  .side{display:none}
-  .g{grid-template-columns:minmax(0,1fr)}
-  .pane{padding:16px}
-  .st span{display:none}
-  .st.a span{display:block;position:absolute;top:44px;right:0;left:0}
-  .steps{margin-bottom:46px}
-  .panel{padding:16px 12px;border-radius:18px}
-  .ph{gap:10px}
-  .ph .ic{width:48px;height:48px}
-  .ph h2{font-size:23px}
-  .nv{align-items:stretch}
-  .nv .btn{flex:1}
-  input,textarea{min-height:46px;font-size:16px}
-  .chip{min-height:38px}
+@media (max-width:900px){
+.hero{grid-template-columns:1fr;gap:10px;padding:8px 0 24px}
+.art{max-width:340px;margin:0 auto}
+.body{grid-template-columns:1fr}.side{display:none}
+}
+@media (max-width:640px){
+body{font-size:16px}
+.wrap{padding:0 10px}
+.nav{padding:14px 6px}.brand{display:none}.nr{margin-left:auto}
+.btn.o{padding:7px 14px;font-size:14px}
+.hero{padding:6px 6px 20px}.art{display:none}
+h1{font-size:36px;margin-bottom:10px}
+.hero p{font-size:16px;margin-bottom:0}
+.feats{flex-direction:column;gap:12px;margin-top:20px}
+.feats svg{width:28px;height:28px}
+.panel{padding:16px 10px;border-radius:18px}
+.ph{margin-bottom:18px;gap:12px}.ph .ic{width:46px;height:46px;font-size:22px}.ph h2{font-size:22px}.ph small{font-size:14px}
+.steps{margin-bottom:44px}
+.st i{width:34px;height:34px;font-size:14px}.st:not(:last-child)::before{top:16px}
+.st span{display:none}
+.st.a span{display:block;position:absolute;top:42px;left:0;right:0;white-space:nowrap}
+.pane{padding:0;border:0}.pane h3{font-size:20px;margin-bottom:14px}
+.g{grid-template-columns:1fr;gap:20px}
+textarea{min-height:76px}
+.chip{padding:7px 14px}
+.nv{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));margin:18px 0 0;padding:10px;border:1px solid var(--ln);border-radius:16px;background:rgba(4,10,31,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:3}
+.nv .btn{flex:1;padding:12px 10px}
+.thanks{padding:36px 6px 48px}.thanks svg{width:104px;height:104px}
+.thanks p{font-size:17px}.wa{width:100%;justify-content:center;padding:14px 20px}
 }
 </style>
 </head>
@@ -152,66 +152,70 @@ html[dir=rtl] .hero>.art{direction:ltr}
 </div>
 
 <script>
-// WhatsApp number that receives the answers (international format, no +)
+// WhatsApp number shown on the Thank You page (international format, no +)
 var WA_NUMBER = "213559485511";
+// Email address that receives the briefs (sent through FormSubmit.co, no server needed)
+var EMAIL = "abdeljalilfellah30@gmail.com";
 
-var lang = "en", cur = 0, V = {};
+var lang = "en", cur = 0, V = {}, sending = false;
 var YN = ["Yes|نعم", "No|لا"];
 var UI = {
- tt:"Let’s Build Your Website|لنصنع موقعك",
+ tt:"Let’s Build Your Website|لنبنِ موقعك",
  brand:"Project Brief|ملف المشروع", go:"Start a Project|ابدأ مشروعك",
- h1:"Let’s Build<br>Your <span class=gr>Website.</span>|لنصنع <span class=gr>موقعك.</span>",
- hp:"Answer a few questions to help us understand your needs and create the right website for your business.|أجب على بعض الأسئلة لمساعدتنا على فهم احتياجاتك وتصميم الموقع المناسب لنشاطك.",
- f1:"Fast & Modern Design|تصميم سريع وعصري", f2:"Secure & Reliable|آمن وموثوق", f3:"Grow Your Business|نمّي نشاطك",
- ph:"Website Project Brief|ملف مشروع الموقع", pd:"Tell us about your project, and we’ll take care of the rest.|أخبرنا عن مشروعك وسنتولى التفاصيل.",
- prev:"Previous|السابق", nxt:"Next Step|التالي", snd:"Submit|إرسال",
- err:"Full name and a valid phone number are required to continue.|الاسم الكامل ورقم الهاتف الصحيح مطلوبان للمتابعة.",
+ h1:"Let’s Build<br>Your <span class=gr>Website.</span>|لنبنِ<br><span class=gr>موقعك.</span>",
+ hp:"Answer a few questions to help us understand your needs and create the perfect website for your business.|أجب عن بضعة أسئلة لنفهم احتياجاتك ونصمّم الموقع المثالي لنشاطك.",
+ f1:"Fast & Modern Design|تصميم سريع وعصري", f2:"Secure & Reliable|آمن وموثوق", f3:"Grow Your Business|نمِّ أعمالك",
+ ph:"Website Project Brief|ملف مشروع الموقع", pd:"Tell us about your project, and we’ll take care of the rest.|حدّثنا عن مشروعك وسنتولى الباقي.",
+ prev:"Previous|السابق", nxt:"Next Step|الخطوة التالية", snd:"Submit|إرسال", sending:"Sending…|جارٍ الإرسال…",
+ err:"Full name and a valid phone number are required to continue.|الاسم الكامل ورقم هاتف صحيح مطلوبان للمتابعة.",
+ fail:"We couldn’t send your answers. Please check your connection and try again.|تعذّر إرسال إجاباتك. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.",
  ty:"Thank <span class=gr>You!</span>|شكرًا <span class=gr>لك!</span>",
  t1:"Your answers have been successfully submitted.|تم إرسال إجاباتك بنجاح.",
- t2:"We’ve received your project details and will contact you shortly to discuss the next steps.|تم استلام تفاصيل مشروعك، وسنتواصل معك قريبًا لمناقشة الخطوات التالية.",
- wa:"Chat on WhatsApp|تواصل عبر واتساب", home:"Back to Home|العودة إلى الرئيسية"
+ t2:"We’ve received your project details and will contact you on WhatsApp shortly to discuss the next steps.|استلمنا تفاصيل مشروعك وسنتواصل معك عبر واتساب قريبًا لمناقشة الخطوات التالية.",
+ wa:"Chat on WhatsApp|تواصل عبر واتساب", home:"Back to Home|العودة إلى الرئيسية",
+ hello:"Hello, I just submitted my project brief.|مرحبًا، أرسلتُ للتو ملف مشروعي."
 };
 // field: [label, type, placeholder | options, required]; types: t text, p phone, e email, a textarea, c single choice, m multi choice
 var ST = [
- {t:"Client Info|معلومات الزبون", i:"👤", h:"A little about you|عنك شوية", d:"Let’s start with some basic information.|لنبدأ ببعض المعلومات الأساسية.", f:[
+ {t:"Client Info|معلومات العميل", i:"👤", h:"A little about you|نبذة عنك", d:"Let’s start with some basic information.|لنبدأ ببعض المعلومات الأساسية.", f:[
   ["Full Name|الاسم الكامل","t","Enter your name|أدخل اسمك",1],
-  ["Company / Brand (Optional)|اسم النشاط (اختياري)","t","Your company name|اسم شركتك أو علامتك"],
+  ["Company / Brand (Optional)|الشركة / العلامة التجارية (اختياري)","t","Your company name|اسم شركتك"],
   ["Phone Number|رقم الهاتف","p","+213 6X XX XX XX",1],
   ["Email Address (Optional)|البريد الإلكتروني (اختياري)","e","you@example.com"]]},
- {t:"Project Idea|فكرة المشروع", i:"💡", h:"Your project|مشروعك", d:"What do you offer, and to whom?|ما الذي تقدمه ومن هم عملاؤك؟", f:[
-  ["What does your business do, and what exactly do you sell or offer?|ما طبيعة نشاطك وما المنتجات أو الخدمات التي تقدمها؟","a","Describe it in your own words|صف نشاطك بكلماتك"],
-  ["Since when, and where are you based?|منذ متى تعمل، وفي أي مدينة تقع؟","t","e.g. since 2020, in Oran|مثال: منذ عام 2020 في وهران"],
-  ["What makes you different from competitors?|ما الذي يميزك عن منافسيك؟","a",""],
-  ["Why do you want a website?|لماذا تريد إنشاء موقع؟","m",["Introduce my business|تعريف بالنشاط","Sell online|البيع عبر الإنترنت","Receive orders|استقبال الطلبات","Book appointments|حجز المواعيد","Find new customers|الوصول إلى عملاء جدد","Build credibility|تعزيز المصداقية"]],
-  ["Who are your customers? (age, area, type)|من هم عملاؤك؟ (الفئة العمرية، المنطقة، النوع)","a",""],
-  ["Which languages should the site have?|ما اللغات المطلوبة للموقع؟","m",["Arabic|العربية","French|الفرنسية","English|الإنجليزية"]]]},
- {t:"Website Type|نوع الموقع", i:"🖥️", h:"Site format|شكل الموقع", d:"Which type of website fits you?|أي نوع من المواقع يناسب نشاطك؟", f:[
+ {t:"Project Idea|فكرة المشروع", i:"💡", h:"Your project|مشروعك", d:"What do you offer, and to whom?|ماذا تقدّم، ولمن؟", f:[
+  ["What does your business do, and what exactly do you sell or offer?|ما طبيعة نشاطك، وماذا تبيع أو تقدّم بالتحديد؟","a","Describe it in your own words|اشرح بأسلوبك الخاص"],
+  ["How long have you been operating, and where are you based?|منذ متى تعمل، وفي أي منطقة؟","t","e.g. since 2020, in Oran|مثال: منذ 2020 في وهران"],
+  ["What makes you different from your competitors?|ما الذي يميّزك عن المنافسين؟","a",""],
+  ["Why do you want a website?|لماذا تريد موقعًا إلكترونيًا؟","m",["Introduce my business|التعريف بنشاطي","Sell online|البيع عبر الإنترنت","Receive orders|استقبال الطلبات","Book appointments|حجز المواعيد","Attract new customers|جذب عملاء جدد","Build credibility|كسب مصداقية أكبر"]],
+  ["Who are your customers? (age, area, type)|من هم عملاؤك؟ (العمر، المنطقة، النوع)","a",""],
+  ["Which languages should the site have?|ما لغات الموقع المطلوبة؟","m",["Arabic|العربية","French|الفرنسية","English|الإنجليزية"]]]},
+ {t:"Website Type|نوع الموقع", i:"🖥️", h:"Site format|شكل الموقع", d:"Which type of website suits you?|ما نوع الموقع المناسب لك؟", f:[
   ["Type of website|نوع الموقع","c",["Business website|موقع تعريفي","Product catalog|كتالوج منتجات","Online store|متجر إلكتروني","Appointment booking|حجز مواعيد","Portfolio|معرض أعمال"]],
-  ["Pages you need|الصفحات المطلوبة","m",["Home|الرئيسية","About|من نحن","Services/Products|الخدمات/المنتجات","Gallery|معرض الصور","Contact|اتصل بنا"]],
-  ["Roughly how many products or services?|كم عدد المنتجات أو الخدمات تقريبًا؟","t","e.g. 40 products|مثال: 40 منتج"],
-  ["Show prices on the site?|تعرض الأسعار في الموقع؟","c",YN],
+  ["Pages you need|الصفحات المطلوبة","m",["Home|الرئيسية","About|من نحن","Services / Products|الخدمات / المنتجات","Gallery|معرض الصور","Contact|اتصل بنا"]],
+  ["Roughly how many products or services do you have?|كم عدد المنتجات أو الخدمات تقريبًا؟","t","e.g. 40 products|مثال: 40 منتجًا"],
+  ["Do you want to show prices on the site?|هل تريد عرض الأسعار في الموقع؟","c",YN],
   ["How should orders be placed?|كيف تتم الطلبات؟","m",["WhatsApp|واتساب","Form on the site|نموذج داخل الموقع","Cash on delivery|الدفع عند الاستلام"]],
-  ["How should customers contact you?|كيف تريد أن يتواصل معك العملاء؟","m",["WhatsApp|واتساب","Phone call|الاتصال الهاتفي","Form|نموذج","Email|البريد الإلكتروني"]]]},
- {t:"Design Style|ستايل التصميم", i:"🎨", h:"Your look|هويتك البصرية", d:"How do you picture your site?|كيفاش تتخيل شكل موقعك؟", f:[
-  ["Styles you like|الأنماط التي تفضلها","m",["Simple & elegant|بسيط وأنيق","Luxurious|فاخر","Modern|عصري","Colorful|ملون"]],
-  ["Do you have a logo and brand colors?|هل لديك شعار وألوان خاصة بالعلامة؟","c",["Logo and colors|شعار وألوان","Logo only|شعار فقط","None|لا يوجد"]],
-  ["Websites you like (send links)|هل لديك مواقع أعجبتك؟ أرسل روابطها","a","Links here|ضع الروابط هنا"],
-  ["What do you dislike in websites?|ما العناصر التي لا تفضلها في المواقع؟","a",""],
-  ["Photos and videos|الصور والفيديوهات","c",["I have them|متوفرة لدي","Please create them|يرجى إعدادها"]],
-  ["Texts (description, prices, terms)|النصوص (وصف، أسعار، شروط)","c",["I have them|عندي","Please write them|اكتبها أنت"]]]},
- {t:"Features|المميزات", i:"⚙️", h:"Features|المميزات", d:"What should your site be able to do?|ما الإمكانيات التي يحتاجها موقعك؟", f:[
-  ["Admin panel to edit products and content?|هل تريد لوحة تحكم لتعديل المنتجات والمحتوى؟","c",YN],
-  ["Do you want to appear on Google (SEO)?|هل تريد ظهور موقعك في نتائج البحث؟","c",YN],
-  ["Social accounts to link|حساباتك اللي نربطوها بالموقع","t","Facebook, Instagram, TikTok|فيسبوك، إنستغرام، تيك توك"],
-  ["Domain and hosting|النطاق والاستضافة","c",["I have them|متوفرة لدي","Please provide them|يرجى توفيرها"]],
-  ["Maintenance and edits after delivery|الصيانة والتعديلات بعد التسليم","c",YN],
-  ["Other features|مميزات أخرى","m",["Map|خريطة","Blog|مدونة","Customer reviews|آراء الزبائن","Multiple languages|لغات متعددة","Floating WhatsApp button|زر واتساب عائم"]]]},
- {t:"Budget & Time|الميزانية والوقت", i:"⏱️", h:"Budget & Time|الميزانية والوقت", d:"Last step before sending.|آخر خطوة قبل الإرسال.", f:[
+  ["How should customers contact you?|كيف تفضّل أن يتواصل معك العملاء؟","m",["WhatsApp|واتساب","Phone call|اتصال هاتفي","Form|نموذج","Email|بريد إلكتروني"]]]},
+ {t:"Design Style|أسلوب التصميم", i:"🎨", h:"Your look|هويتك البصرية", d:"How do you picture your site?|كيف تتخيّل شكل موقعك؟", f:[
+  ["Styles you like|الأساليب التي تفضّلها","m",["Simple & elegant|بسيط وأنيق","Luxurious|فاخر","Modern|عصري","Colorful|ملوّن"]],
+  ["Do you have a logo and brand colors?|هل لديك شعار وألوان خاصة بعلامتك؟","c",["Logo and colors|شعار وألوان","Logo only|شعار فقط","Neither|لا شيء"]],
+  ["Websites you like (please share links)|مواقع تعجبك (أرسل الروابط)","a","Links here|الروابط هنا"],
+  ["What do you dislike in websites?|ما الذي لا يعجبك في المواقع؟","a",""],
+  ["Photos and videos|الصور ومقاطع الفيديو","c",["I have them|لدي","Please create them for me|أحتاج من يُعدّها لي"]],
+  ["Website text (descriptions, prices, terms)|النصوص (الوصف، الأسعار، الشروط)","c",["I have it|لدي","Please write it for me|أحتاج من يكتبها لي"]]]},
+ {t:"Features|المميزات", i:"⚙️", h:"Features|المميزات", d:"What should your site be able to do?|ماذا ينبغي أن يقدّمه موقعك؟", f:[
+  ["Do you want an admin panel to edit products and content yourself?|هل تريد لوحة تحكم لتعديل المنتجات والمحتوى بنفسك؟","c",YN],
+  ["Do you want your site to appear on Google (SEO)?|هل تريد أن يظهر موقعك في نتائج جوجل (SEO)؟","c",YN],
+  ["Social accounts to link to the site|حساباتك على مواقع التواصل لربطها بالموقع","t","Facebook, Instagram, TikTok|فيسبوك، إنستغرام، تيك توك"],
+  ["Domain and hosting|النطاق والاستضافة","c",["I already have them|لدي بالفعل","Please provide them|أحتاج إلى توفيرها"]],
+  ["Do you want maintenance and edits after delivery?|هل تريد الصيانة والتعديلات بعد التسليم؟","c",YN],
+  ["Other features|مميزات أخرى","m",["Map|خريطة","Blog|مدونة","Customer reviews|آراء العملاء","Multiple languages|لغات متعددة","Floating WhatsApp button|زر واتساب عائم"]]]},
+ {t:"Budget & Time|الميزانية والوقت", i:"⏱️", h:"Budget & Time|الميزانية والوقت", d:"The last step before sending.|الخطوة الأخيرة قبل الإرسال.", f:[
   ["Budget for the website|الميزانية المخصصة للموقع","t","e.g. 60,000 DZD|مثال: 60,000 دج"],
-  ["When do you need it ready?|في أي تاريخ تحتاج أن يكون الموقع جاهزًا؟","t",""],
-  ["Payment method|طريقة الدفع","c",["One payment|دفعة واحدة","Installments|بالأقساط"]],
-  ["Who approves the design and content?|من يوافق على التصميم والمحتوى؟","t",""],
-  ["How do you want to follow progress?|كيف تريد متابعة سير العمل؟","c",["Messages|الرسائل","Weekly calls|المكالمات الأسبوعية"]],
+  ["When do you need the site to be ready?|متى تريد أن يكون الموقع جاهزًا؟","t",""],
+  ["Payment method|طريقة الدفع","c",["One payment|دفعة واحدة","Installments|على أقساط"]],
+  ["Who will approve the design and content on your side?|من يعتمد التصميم والمحتوى من جهتك؟","t",""],
+  ["How would you like to follow the progress?|كيف تفضّل متابعة سير العمل؟","c",["Messages|رسائل","Weekly calls|مكالمات أسبوعية"]],
   ["Other notes|ملاحظات أخرى","a",""]]}
 ];
 
@@ -226,6 +230,8 @@ function buildSteps() {
     return '<button class="st" type="button" data-i="' + i + '"><i>' + (i + 1) + '</i><span>' + L(s.t) + '</span></button>';
   }).join("");
 }
+
+function nextLabel() { return L(cur === ST.length - 1 ? UI.snd : UI.nxt); }
 
 function render() {
   var s = ST[cur], h = '<h3>' + (cur + 1) + '. ' + L(s.t) + '</h3><div class="g">';
@@ -254,13 +260,13 @@ function render() {
     b.className = "st" + (i < cur ? " d" : i === cur ? " a" : "");
   });
   $("prev").hidden = cur === 0;
-  $("next").textContent = L(cur === ST.length - 1 ? UI.snd : UI.nxt);
+  $("next").textContent = nextLabel();
 }
 
+// The layout never flips: only the text direction changes with the language.
 function setLang(l) {
   lang = l;
-  var d = document.documentElement;
-  d.lang = l; d.dir = l === "ar" ? "rtl" : "ltr";
+  document.documentElement.lang = l;
   document.title = L(UI.tt);
   document.querySelectorAll("[data-k]").forEach(function (e) { e.innerHTML = L(UI[e.dataset.k]); });
   $("lang").textContent = l === "en" ? "العربية" : "English";
@@ -300,76 +306,49 @@ function valid() {
   return true;
 }
 
-function submittedAnswers() {
-  var out = [];
+// The email is always written in Arabic so it reads the same whichever language the client used.
+function message() {
+  var o = "طلب موقع جديد\n";
   ST.forEach(function (s, si) {
-    var sectionName = lang === "ar" ? A(s.t) : s.t.split("|")[0];
-    var lines = [];
+    var l = "";
     s.f.forEach(function (f, fi) {
       var v = V[key(si, fi)];
-      v = Array.isArray(v) ? v.map(function (item) { return lang === "ar" ? A(item) : item.split("|")[0]; }).join(", ") : (v || "").trim();
-      if (v) {
-        var label = lang === "ar" ? A(f[0]).replace(" (اختياري)", "") : f[0].split("|")[0];
-        lines.push(label + ": " + v);
-      }
+      v = Array.isArray(v) ? v.map(A).join("، ") : (f[1] === "c" ? A(v || "") : (v || "").trim());
+      if (v) l += "• " + A(f[0]).replace(" (اختياري)", "") + ": " + v + "\n";
     });
-    if (lines.length) out.push((si + 1) + ". " + sectionName + "\n" + lines.join("\n"));
+    if (l) o += "\n" + (si + 1) + ". " + A(s.t) + "\n" + l;
   });
-  return out.join("\n\n");
+  return o;
 }
-function openWA() {
-  window.open("https://wa.me/" + WA_NUMBER, "_blank", "noopener");
-}
-function sendToEmail() {
-  var form = document.createElement("form");
-  form.action = "https://formsubmit.co/abdeljalilfellah30@gmail.com";
-  form.method = "POST";
-  var fields = {
-    "_subject": "New website project brief",
-    "_template": "table",
-    "_captcha": "false",
-    "_replyto": (V[key(0, 3)] || "").trim(),
-    "Name": (V[key(0, 0)] || "").trim(),
-    "Phone": (V[key(0, 2)] || "").trim(),
-    "Email": (V[key(0, 3)] || "").trim(),
-    "Language": lang === "ar" ? "Arabic" : "English",
-    "Project details": submittedAnswers()
-  };
-  Object.keys(fields).forEach(function (name) {
-    var input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    input.value = fields[name];
-    form.appendChild(input);
-  });
-  var body = new FormData(form);
-  return fetch(form.action, {
-    method: "POST",
-    body: body,
-    headers: { "Accept": "application/json" }
-  }).then(function (response) {
-    if (!response.ok) throw new Error("Form submission failed");
-  });
+
+function sendEmail() {
+  if (!EMAIL) return Promise.reject(new Error("no email"));
+  var name = (V[key(0, 0)] || "").trim(), em = (V[key(0, 3)] || "").trim();
+  var body = {_subject: "New website project brief – " + name, _template: "box", _captcha: "false", _honey: "",
+    name: name, phone: (V[key(0, 2)] || "").trim(), message: message()};
+  if (em) body.email = em;
+  return fetch("https://formsubmit.co/ajax/" + EMAIL, {
+    method: "POST", headers: {"Content-Type": "application/json", "Accept": "application/json"}, body: JSON.stringify(body)
+  }).then(function (r) { if (!r.ok) throw new Error("http"); return r.json(); })
+    .then(function (d) { if (String(d.success) !== "true") throw new Error("rejected"); });
 }
 
 $("prev").onclick = function () { if (cur > 0) { cur--; render(); } };
 $("next").onclick = function () {
-  if (!valid()) return;
+  if (sending || !valid()) return;
   if (cur < ST.length - 1) { cur++; render(); $("brief").scrollIntoView(); return; }
-  $("next").disabled = true;
-  $("next").textContent = lang === "ar" ? "جارٍ الإرسال..." : "Sending...";
-  sendToEmail().then(function () {
+  sending = true; $("next").disabled = true; $("next").textContent = L(UI.sending); $("err").textContent = "";
+  sendEmail().then(function () {
     $("main").hidden = true; $("thanks").hidden = false; window.scrollTo(0, 0);
   }).catch(function () {
-    $("err").textContent = lang === "ar"
-      ? "تعذر إرسال النموذج. يرجى المحاولة مرة أخرى."
-      : "We couldn’t submit the form. Please try again.";
-  }).finally(function () {
-    $("next").disabled = false;
-    $("next").textContent = L(UI.snd);
+    $("err").textContent = L(UI.fail);
+  }).then(function () {
+    sending = false; $("next").disabled = false; $("next").textContent = nextLabel();
   });
 };
-$("wa").onclick = openWA;
+$("wa").onclick = function () {
+  window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(L(UI.hello)), "_blank", "noopener");
+};
 $("go").onclick = function () { $("brief").scrollIntoView({behavior: "smooth"}); };
 $("lang").onclick = function () { setLang(lang === "en" ? "ar" : "en"); };
 $("home").onclick = function () {
